@@ -19,10 +19,10 @@ function App() {
       children: [
         {
           path: '',
-          element: <Home />
+          element: <Home />,
         },
         {
-          path: 'thread', //+ /:id
+          path: 'thread/:id', //+ /:id
           element: <Thread />
         }
       ]

@@ -1,0 +1,70 @@
+.main-div {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(255, 255, 255);
+    height: 92vh;
+}
+
+.thread-content-div {
+    width: 45vw;
+    height: 92vh;
+    padding: 1vw 1vw 1vw 5vw;
+}
+
+.right-banner-div {
+    /* background-color: var(--hover-grey); */
+    width: 30vw;
+}
+
+.img-div {
+    width: 20vw;
+    height: 100%;
+    background-color: var(--hover-grey);
+}
+
+.thread-div {
+    background-color: white;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+
+    gap: 2rem;
+}
+
+.btn-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+}
+
+.interactive-div {
+    background-color: var(--border-grey);
+    width: 5vw;
+    padding: 0.2rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.interactive-div:hover {
+    background-color: var(--dark-hover-grey);
+}
+
+.create-comment-div {
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2rem;
+    overflow: hidden;
+    border: 1px solid var(--border-grey);
+    padding: 1rem;
+}
+
+.comment-text {
+    border: 0px solid black;
+}

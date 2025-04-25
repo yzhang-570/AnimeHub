@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
 import '../App.css'
 
 function Layout() {
@@ -11,6 +11,7 @@ function Layout() {
       <div className="main-div">
           <div className="side-nav-div">
             <h1>Side nav</h1>
+            <Link to="/" ><h3>Home</h3></Link>
           </div>
           <Outlet />
       </div>

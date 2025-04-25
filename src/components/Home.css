@@ -1,27 +1,33 @@
 .main-div {
     display: flex;
     flex-direction: row;
-    background-color: rgb(179, 206, 179);
+    background-color: rgb(255, 255, 255);
     height: 92vh;
 }
 
 .content-div {
-    width: 60vw;
+    width: 45vw;
     height: 92vh;
+    padding: 1vw;
 }
 
 .right-rec-div {
-    background-color: rgb(193, 193, 193);
-    width: 20vw;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgb(221, 221, 221);
+    width: 25vw;
     height: 92vh;
 }
 
 .createpost-div {
-    background-color: rgb(210, 210, 210);
+    background-color: var(--border-grey);
     height: 10vh;
     border-radius: 50px;
     display: flex;
     align-items: center;
     margin: 1rem;
     padding-left: 2rem;
+}
+
+.createpost-div:hover {
+    background-color: var(--dark-hover-grey);
 }

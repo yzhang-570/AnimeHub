@@ -12,6 +12,7 @@ function CreateForm({ onClose }) {
         .from('ForumPosts')
         .insert(newPost)
     onClose()
+    location.reload()
   }
 
   const handleChange = (e) =>  {
