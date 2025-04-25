@@ -1,0 +1,18 @@
+.popup-bg {
+    background-color: rgba(255, 255, 255, 0.679);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-div {
+    background-color: white;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width: 30vw;
+    height: 70vh;
+    padding: 2rem;
+}
