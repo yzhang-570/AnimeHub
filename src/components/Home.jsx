@@ -3,20 +3,21 @@ import './Home.css'
 import Popup from 'reactjs-popup'
 import CreateForm from './CreateForm'
 import Post from './Post'
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 
 import supabase from '../Client.jsx'
 
 function Home() {
   const [posts, setPosts] = useState([])
 
+  const getData = async () => {
+    const { data } = await supabase
+    .from('ForumPosts')
+    .select()
+    setPosts(data)
+  }
+
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase
-      .from('ForumPosts')
-      .select()
-      setPosts(data)
-    }
     getData()
   }, [])
 
@@ -27,6 +28,25 @@ function Home() {
       .order([e.target.name], {ascending: false})
       setPosts(data)
   }
+
+  const search = useOutletContext()
+  useEffect(() => {
+    const filterBySearch = async () => {
+      const { data } = await supabase
+        .from('ForumPosts')
+        .select()
+        .ilike("title", `%${search}%`)
+        setPosts(data)
+    }
+
+    if(search === "") {
+      getData()
+    }
+    else {
+      filterBySearch()
+      console.log(search)
+    }
+  }, [search])
 
   return (
   <div className="main-div">

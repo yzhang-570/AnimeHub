@@ -23,7 +23,7 @@ function Layout() {
             <h1>Side nav</h1>
             <Link to="/" ><h3>Home</h3></Link>
           </div>
-          <Outlet />
+          <Outlet context={search}/>
       </div>
     </>
   )
