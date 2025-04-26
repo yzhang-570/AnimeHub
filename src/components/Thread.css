@@ -13,6 +13,7 @@ html {
   width: 45vw;
   height: 92vh;
   padding: 1vw 1vw 1vw 5vw;
+  /* background-color: var(--hover-grey); */
 }
 
 .thread-content-div img {

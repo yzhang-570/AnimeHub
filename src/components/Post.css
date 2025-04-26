@@ -1,15 +1,16 @@
 .post-border {
-  border-bottom: 1px solid var(--border-grey);
+  /* border-bottom: 1px solid var(--border-grey); */
 }
 
 .post-div {
   background-color: white;
-  padding: 0.5rem;
+  box-shadow: 0px 2px 3px var(--border-grey); /* modified */
+  padding: 0.75rem;
   margin: 0.5rem;
   display: flex;
   gap: 1rem;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .post-div:hover {
