@@ -1,19 +1,54 @@
 .top-nav-div {
-    background-color: rgb(255, 255, 255);
-    border-bottom: 1px solid rgb(221, 221, 221);
-    height: 8vh;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(221, 221, 221);
+  height: 8vh;
+  top: 0;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1vw;
+}
+
+.search-div {
+  background-color: var(--border-grey);
+  padding: 0.2rem;
+  overflow: hidden;
+  /* width: 4vw; */
+  /* border: 1px solid var(--border-grey);  */
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+}
+
+.search-bar {
+  height: 5vh;
+  width: 30vw;
+  border: 0px solid black;
+  background-color: rgba(0, 0, 0, 0);
+  padding-left: 2vw;
+}
+
+.search-bar:focus {
+  /* border: 0px solid black; */
+  outline: none;
 }
 
 .main-div {
-    background-color: rgb(193, 112, 112);
-    display: flex;
-    flex-direction: row;
-    height: 92vh;
+  background-color: rgb(193, 112, 112);
+  display: flex;
+  flex-direction: row;
+  height: 92vh;
 }
 
 .side-nav-div {
-    background-color: rgb(255, 255, 255);
-    width: 25vw;
-    height: 92vh;
-    border-right: 1px solid rgb(221, 221, 221);
+  background-color: rgb(255, 255, 255);
+  width: 20vw;
+  height: 92vh;
+  border-right: 1px solid rgb(221, 221, 221);
+  
+  /* left: 0; */
+  /* top: 20; */
+  /* position: sticky; */
 }

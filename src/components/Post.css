@@ -1,31 +1,42 @@
 .post-border {
-    border-bottom: 1px solid var(--border-grey);
+  border-bottom: 1px solid var(--border-grey);
 }
 
 .post-div {
-    background-color: white;
-    padding: 0.5rem;
-    margin: 0.5rem;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    border-radius: 15px;
+  background-color: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  border-radius: 15px;
 }
 
 .post-div:hover {
-    background-color: var(--hover-grey);
+  background-color: var(--hover-grey);
 }
 
-.likes-div {
-    background-color: var(--border-grey);
-    width: 5vw;
-    padding: 0.2rem;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.options {
+  float: right;
+  padding: 0.25rem;
+  border-radius: 15px;
 }
 
-.likes-div:hover {
-    background-color: var(--dark-hover-grey);
+.options:hover {
+  background-color: var(--dark-hover-grey);
+}
+
+.likes-btn {
+  background-color: var(--border-grey);
+  width: 5vw;
+  padding: 0.2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid black;
+}
+
+.likes-btn:hover {
+  background-color: var(--dark-hover-grey);
 }

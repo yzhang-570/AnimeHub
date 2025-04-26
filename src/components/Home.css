@@ -1,33 +1,55 @@
 .main-div {
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(255, 255, 255);
-    height: 92vh;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(255, 255, 255);
+  height: 92vh;
 }
 
 .content-div {
-    width: 45vw;
-    height: 92vh;
-    padding: 1vw;
+  width: 45vw;
+  height: 92vh;
+  padding: 0 5vw;
 }
 
 .right-rec-div {
-    background-color: rgb(255, 255, 255);
-    border-left: 1px solid rgb(221, 221, 221);
-    width: 25vw;
-    height: 92vh;
+  background-color: rgb(255, 255, 255);
+  border-left: 1px solid rgb(221, 221, 221);
+  width: 25vw;
+  height: 92vh;
 }
 
 .createpost-div {
-    background-color: var(--border-grey);
-    height: 10vh;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    margin: 1rem;
-    padding-left: 2rem;
+  float: right;
+  background-color: var(--border-grey);
+  width: 4vw;
+  border: 1px solid var(--border-grey); 
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 1rem;
 }
 
 .createpost-div:hover {
-    background-color: var(--dark-hover-grey);
+  background-color: var(--hover-grey);
+}
+
+.create-post h3 {
+  font-weight: 500;
+}
+
+.sort-options {
+  /* float: right; */
+  padding: 0.25rem;
+  width: 5vw;
+  margin: 1rem;
+  border-radius: 15px;
+  background-color: white;
+  border: 0px solid black;
+  /* width: 3vw; */
+  /* text-align: center; */
+}
+
+.sort-options:hover {
+  background-color: var(--hover-grey);
 }

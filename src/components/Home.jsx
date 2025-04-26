@@ -13,35 +13,48 @@ function Home() {
   useEffect(() => {
     const getData = async () => {
       const { data } = await supabase
-        .from('ForumPosts')
-        .select()
+      .from('ForumPosts')
+      .select()
       setPosts(data)
     }
     getData()
   }, [])
 
-  // console.log(posts)
+  const handleSort = async (e) => {
+    const { data } = await supabase
+      .from('ForumPosts')
+      .select()
+      .order([e.target.name], {ascending: false})
+      setPosts(data)
+  }
 
   return (
-    <div className="main-div">
-      <div className="content-div">
-        <Popup trigger={<div className="createpost-div">
-                <h2>What's happening?</h2>
-                <button>+</button>
-            </div>} modal>
-            {close => ( //create custom close behavior
-                <CreateForm onClose={() => close()}/>
-            )}
-        </Popup>
-        {/* <h3>main content</h3> */}
-        {posts && posts.map(post => (
-          <Link to={"/thread/" + post.id} key={post.id}><Post info={post}/></Link>
-        ))}
+  <div className="main-div">
+    <div className="content-div">
+    <Popup trigger={<div className="createpost-div">
+        <h3>+Create</h3>
+      </div>} modal>
+      {close => ( //create custom close behavior
+        <CreateForm onClose={() => close()}/>
+      )}
+    </Popup>
+
+    <Popup trigger= {<div className="sort-options"><p>Sort by ↓</p></div>} arrow={false}>
+      <div className="options-div">
+        <input type="button" onClick={handleSort} name="likes" className="options-btn" value="Hot" />
+        <input type="button" onClick={handleSort} name="created_at" className="options-btn" value="New" />
       </div>
-      <div className="right-rec-div">
-        <h1>some recs</h1>
-      </div>
+    </Popup>
+
+    {/* <h3>main content</h3> */}
+    {posts && posts.map(post => (
+      <Link to={"/thread/" + post.id} key={post.id}><Post info={post}/></Link>
+    ))}
     </div>
+    <div className="right-rec-div">
+    <h1>some recs</h1>
+    </div>
+  </div>
   )
 }
 

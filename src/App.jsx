@@ -13,20 +13,20 @@ import Thread from './components/Thread'
 function App() {
 
   const routes = useRoutes([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
     {
-      path: '/',
-      element: <Layout />,
-      children: [
-        {
-          path: '',
-          element: <Home />,
-        },
-        {
-          path: 'thread/:id', //+ /:id
-          element: <Thread />
-        }
-      ]
+      path: '',
+      element: <Home />,
+    },
+    {
+      path: 'thread/:id', //+ /:id
+      element: <Thread />
     }
+    ]
+  }
   ])
   return routes
 }

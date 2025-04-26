@@ -2,69 +2,143 @@ import React, { useState, useEffect } from 'react'
 import '../App.css'
 import './Thread.css'
 
+import EditForm from "./EditForm"
+import Comment from "./Comment"
+
 import { useParams } from 'react-router-dom'
+import Popup from 'reactjs-popup'
 
 import supabase from '../Client.jsx'
 
 function Thread() {
   
-  const [info, setInfo] = useState({})
-
   const params = useParams()
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase
-        .from("ForumPosts")
-        .select()
-        .eq('id', params.id)
-      
-        setInfo(data)
-    }
-    getData()
-  }, [])
+  const [info, setInfo] = useState({})
+  const [newComment, setNewComment] = useState({text: "", post_id: params.id})
+  const [comments, setComments] = useState([])
 
-  console.log(info)
+  const getData = async () => {
+    const { data } = await supabase
+      .from("ForumPosts")
+      .select()
+      .eq('id', params.id)
+    
+    return data
+  }
+  
+  const updateData = async () => {
+    const data = await getData()
+    setInfo(data)
+  }
+
+  const updateLikes = async (e) => {
+    const curr = await getData()
+    const numLikes = curr[0].likes
+    await supabase
+      .from("ForumPosts")
+      .update({likes: numLikes + 1})
+      .eq("id", params.id)
+    updateData()
+  }
+  
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    await supabase
+      .from("ForumPosts")
+      .delete()
+      .eq("id", params.id)
+      
+    window.location = "/"
+  }
+
+  const handleCommentChange = (e) => {
+    setNewComment((prev) => (
+      {...prev, text: e.target.value}
+    ))
+  }
+
+  const handleComment = async () => {
+    await supabase
+      .from("ForumComments")
+      .insert(newComment)
+      .select()
+    setNewComment({text: "", post_id: params.id})
+    retrieveComments()
+  }
+
+  const retrieveComments = async () => {
+    const { data } = await supabase
+      .from("ForumComments")
+      .select()
+      .eq("post_id", params.id)
+    setComments(data)
+  }
+
+  console.log(comments)
+  
+  useEffect(() => {
+    updateData()
+    retrieveComments()
+  }, [])
 
   return (
     <div className="main-div">
       <div className="thread-content-div">
 
         <div className="thread-div">
-          {
-            Object.keys(info).length !== 0 && 
+          {Object.keys(info).length !== 0 && 
             <>
-              <div className="postheader-div">
-              <div>
-                <h1 className="title">{info[0].title}</h1>
-                <h4>{info[0].created_at}</h4>
+              <div className="threadheader-div">
+                <Popup trigger= {<div className="thread-options-btn"><p>More options</p></div>} arrow={false}>
+                  <div className="options-div">
+                    <input type="button" onClick={handleDelete} className="options-btn" value="Delete" />
+                  </div>
+                </Popup>
+                  <div className="row">
+                    <h1 className="title">{info[0].title}</h1>
+                    <Popup trigger={<input type="button" className="thread-options-btn" value="Edit" />} modal>
+                        {close => ( //create custom close behavior
+                            <EditForm onClose={() => close()} info={info}/>
+                        )}
+                    </Popup>
+                  </div>
+                  <h4>{info[0].created_at}</h4>
               </div>
-                <p>More options</p>
-              </div>
+
               <h4>{info[0].desc}</h4>
+              {info[0].img_url !== null && info[0].image_url !== "" && <img src={info[0].image_url} alt="Image failed to load"/>}
 
               <div className="btn-bar">
-                <div className="interactive-div">
+                <div onClick={updateLikes} className="interactive-div">
                     <h3>{info[0].likes} Likes</h3>
                 </div>
-                <div className="interactive-div">
-                    <h3>{info[0].likes} Comments</h3>
-                </div>
+                <a href="#create-comment-div">
+                  <div className="interactive-div">
+                      <h3>{0} Comments</h3>
+                  </div>
+                </a>
               </div>
             </>
           }
 
-          <div className="create-comment-div">
-            <textarea rows="4" cols="85" className="comment-text" name="desc" placeholder="Make a comment"></textarea>
-            <button>Comment</button>
+          <div id="create-comment-div">
+            <textarea rows="4" cols="85" value={newComment.text} onChange={handleCommentChange} className="comment-text" name="desc" placeholder="Make a comment"></textarea>
+            <input type="button" value="Comment" onClick={handleComment} />
+          </div>
+          <div className="all-comments-div">
+            {comments && comments.map(comment => (
+              <Comment key={comment.comment_id} info={comment}/>
+            ))}
           </div>
         </div>
-
       </div>
+      
       <div className="right-banner-div">
         <div className="img-div">
         </div>
       </div>
+
     </div>
   )
 }
