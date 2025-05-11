@@ -3,7 +3,7 @@ import "./PostPage.css"
 
 import supabase from "../Client"
 
-function Comment({ info }) {
+function Comment({ info, userSession }) {
 
   const deleteComment = async () => {
     await supabase
@@ -13,12 +13,19 @@ function Comment({ info }) {
     location.reload()
   }
 
+  console.log(info)
+
   return (
     <div className="comment-div">
-      <div onClick={deleteComment} className="thread-options-btn"><p>Delete</p></div>
-      <img src={info.profile_img} />
-      <h4><p>Comment:</p> {info.text}</h4>
-      <p>{info.created_at}</p>
+      {userSession && userSession.user.id === info.user_id && <div onClick={deleteComment} 
+        className="thread-options-btn"><p>Delete</p></div>}
+      <div className="row">
+        <img className="profile-img" src={info.profile_img} />
+        <div>
+          <h4><p>{info.display_name}</p> {info.text}</h4>
+          <p>{info.created_at}</p>
+        </div>
+      </div>
     </div>
   )
 }

@@ -55,7 +55,7 @@ function PostPage({ userSession }) {
     window.location = "/"
   }
 
-  console.log(userSession)
+  // console.log(userSession)
 
   const handleCommentChange = (e) => {
     setNewComment((prev) => (
@@ -106,14 +106,13 @@ function PostPage({ userSession }) {
       .eq("post_id", params.id)
     setComments(data)
   }
-
-  // console.log(comments)
   
   useEffect(() => {
     updateData()
     retrieveComments()
   }, [])
 
+  // console.log(userSession)
   // console.log(info)
 
   return (
@@ -124,22 +123,24 @@ function PostPage({ userSession }) {
           {Object.keys(info).length !== 0 && 
             <>
               <div className="threadheader-div">
+                {userSession && userSession.user.id === info[0].user_id && 
                 <Popup trigger= {<div className="thread-options-btn"><p>More options</p></div>} arrow={false}>
                   <div className="options-div">
                     <input type="button" onClick={handleDelete} className="options-btn" value="Delete" />
                   </div>
-                </Popup>
+                </Popup>}
                 <div className="row">
                   <img className="profile-img" src={info[0].profile_img}/>
                   <h3>{info[0].display_name}</h3>
                 </div>
                 <div className="row">
                   <h1 className="title">{info[0].title}</h1>
+                  {userSession && userSession.user.id === info[0].user_id && 
                   <Popup trigger={<input type="button" className="thread-options-btn" value="Edit" />} modal>
                       {close => ( //create custom close behavior
                           <EditForm onClose={() => close()} info={info}/>
                       )}
-                  </Popup>
+                  </Popup>}
                 </div>
                 <h4>{info[0].created_at}</h4>
               </div>
@@ -168,7 +169,7 @@ function PostPage({ userSession }) {
           </div>
           <div className="all-comments-div">
             {comments && comments.map(comment => (
-              <Comment key={comment.comment_id} info={comment}/>
+              <Comment key={comment.comment_id} info={comment} userSession={userSession}/>
             ))}
           </div>
         </div>
