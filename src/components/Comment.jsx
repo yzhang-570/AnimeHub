@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Thread.css"
+import "./PostPage.css"
 
 import supabase from "../Client"
 

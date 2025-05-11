@@ -13,7 +13,7 @@ html {
   width: 45vw;
   height: 92vh;
   padding: 1vw 1vw 1vw 5vw;
-  /* background-color: var(--hover-grey); */
+  background-color: var(--hover-grey);
 }
 
 .thread-content-div img {
@@ -56,14 +56,14 @@ html {
 }
 
 .right-banner-div {
-  /* background-color: var(--hover-grey); */
+  background-color: var(--hover-grey);
   width: 30vw;
 }
 
 .img-div {
   width: 20vw;
   height: 100%;
-  background-color: var(--hover-grey);
+  background-color: rgb(233, 233, 233);
 }
 
 .thread-div {
@@ -73,7 +73,7 @@ html {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-
+  background-color: var(--hover-grey);
   gap: 2rem;
 }
 

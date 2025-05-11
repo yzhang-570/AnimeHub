@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css'
-import './Thread.css'
+import './PostPage.css'
 
-import EditForm from "./EditForm"
-import Comment from "./Comment"
+import EditForm from "./EditForm.jsx"
+import Comment from "./Comment.jsx"
 
 import { useParams } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 
 import supabase from '../Client.jsx'
 
-function Thread() {
+function PostPage() {
   
   const params = useParams()
 
@@ -143,4 +143,4 @@ function Thread() {
   )
 }
 
-export default Thread
+export default PostPage

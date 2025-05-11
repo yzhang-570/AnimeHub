@@ -3,7 +3,7 @@ import './App.css'
 import { useRoutes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './components/Home'
-import Thread from './components/Thread'
+import PostPage from './components/PostPage'
 
 /*
 
@@ -23,7 +23,7 @@ function App() {
     },
     {
       path: 'thread/:id', //+ /:id
-      element: <Thread />
+      element: <PostPage />
     }
     ]
   }
