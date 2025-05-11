@@ -67,8 +67,8 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
-
+Here's a walkthrough:
+![CdramaHub2](https://github.com/user-attachments/assets/55e9e705-18b4-4178-9bde-ec8e5c584e91)
 GIF created with ScreenToGIF
 
 ## Notes
