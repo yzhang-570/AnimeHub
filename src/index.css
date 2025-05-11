@@ -9,6 +9,10 @@
   color: black;
 }
 
+html {
+    overflow-y:scroll;
+}
+
 .poppins-medium {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
@@ -26,8 +30,6 @@
 }
 
 h1 {
-  /* font-weight: bold; */
-  /* font-size: 1.75em; */
   font-weight: 300;
 }
 

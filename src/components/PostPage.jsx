@@ -4,18 +4,21 @@ import './PostPage.css'
 
 import EditForm from "./EditForm.jsx"
 import Comment from "./Comment.jsx"
+import HeartImg from '../assets/heart.png'
+import CommentImg from '../assets/comment-dots.png'
+import userImg from '../assets/user-avatar.jpg'
 
 import { useParams } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 
 import supabase from '../Client.jsx'
 
-function PostPage() {
+function PostPage({ userSession }) {
   
   const params = useParams()
 
   const [info, setInfo] = useState({})
-  const [newComment, setNewComment] = useState({text: "", post_id: params.id})
+  const [newComment, setNewComment] = useState({text: "", post_id: params.id, user_id: "", display_name: "", profile_img:""})
   const [comments, setComments] = useState([])
 
   const getData = async () => {
@@ -52,19 +55,48 @@ function PostPage() {
     window.location = "/"
   }
 
+  console.log(userSession)
+
   const handleCommentChange = (e) => {
     setNewComment((prev) => (
       {...prev, text: e.target.value}
     ))
+    if(userSession) {
+      if(Object.keys(userSession.user.user_metadata).length > 0) {
+        setNewComment((prev) => (
+          {...prev, display_name: userSession.user.user_metadata.name})
+        )
+        setNewComment((prev) => (
+          {...prev, profile_img: userSession.user.user_metadata.avatar_url})
+        )
+      }
+      else {
+        setNewComment((prev) => (
+          {...prev, display_name: "Guest"})
+        )
+        setNewComment((prev) => (
+          {...prev, profile_img: userImg})
+        )
+      }
+      setNewComment((prev) => (
+        {...prev, user_id: userSession.user.id})
+      )
+    }
   }
 
-  const handleComment = async () => {
-    await supabase
+  const handleCreateComment = async () => {
+    if(userSession) {
+      await supabase
       .from("ForumComments")
       .insert(newComment)
       .select()
-    setNewComment({text: "", post_id: params.id})
-    retrieveComments()
+      setNewComment({text: "", post_id: params.id})
+      retrieveComments()
+    }
+    else {
+      console.log("ERROR: Please sign in")
+      window.location = "/sign-in"
+    }
   }
 
   const retrieveComments = async () => {
@@ -75,12 +107,14 @@ function PostPage() {
     setComments(data)
   }
 
-  console.log(comments)
+  // console.log(comments)
   
   useEffect(() => {
     updateData()
     retrieveComments()
   }, [])
+
+  // console.log(info)
 
   return (
     <div className="main-div">
@@ -95,15 +129,19 @@ function PostPage() {
                     <input type="button" onClick={handleDelete} className="options-btn" value="Delete" />
                   </div>
                 </Popup>
-                  <div className="row">
-                    <h1 className="title">{info[0].title}</h1>
-                    <Popup trigger={<input type="button" className="thread-options-btn" value="Edit" />} modal>
-                        {close => ( //create custom close behavior
-                            <EditForm onClose={() => close()} info={info}/>
-                        )}
-                    </Popup>
-                  </div>
-                  <h4>{info[0].created_at}</h4>
+                <div className="row">
+                  <img className="profile-img" src={info[0].profile_img}/>
+                  <h3>{info[0].display_name}</h3>
+                </div>
+                <div className="row">
+                  <h1 className="title">{info[0].title}</h1>
+                  <Popup trigger={<input type="button" className="thread-options-btn" value="Edit" />} modal>
+                      {close => ( //create custom close behavior
+                          <EditForm onClose={() => close()} info={info}/>
+                      )}
+                  </Popup>
+                </div>
+                <h4>{info[0].created_at}</h4>
               </div>
 
               <h4>{info[0].desc}</h4>
@@ -111,11 +149,13 @@ function PostPage() {
 
               <div className="btn-bar">
                 <div onClick={updateLikes} className="interactive-div">
-                    <h3>{info[0].likes} Likes</h3>
+                    <img className="icon-img" src={HeartImg} />
+                    <h3>{info[0].likes}</h3>
                 </div>
                 <a href="#create-comment-div">
                   <div className="interactive-div">
-                      <h3>{0} Comments</h3>
+                      <img className="icon-img" src={CommentImg} />
+                      <h3>{comments.length}</h3>
                   </div>
                 </a>
               </div>
@@ -123,8 +163,8 @@ function PostPage() {
           }
 
           <div id="create-comment-div">
-            <textarea rows="4" cols="85" value={newComment.text} onChange={handleCommentChange} className="comment-text" name="desc" placeholder="Make a comment"></textarea>
-            <input type="button" value="Comment" onClick={handleComment} />
+            <textarea rows="4" cols="83" value={newComment.text} onChange={handleCommentChange} className="comment-text" name="desc" placeholder="Make a comment"></textarea>
+            <input type="button" className="comment-btn" value="Comment" onClick={handleCreateComment} />
           </div>
           <div className="all-comments-div">
             {comments && comments.map(comment => (
@@ -132,6 +172,7 @@ function PostPage() {
             ))}
           </div>
         </div>
+        
       </div>
       
       <div className="right-banner-div">

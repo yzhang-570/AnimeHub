@@ -5,6 +5,7 @@ import './Navigation.css'
 import Popup from 'reactjs-popup'
 import CreateForm from './CreateForm'
 import userImage from '../assets/user-avatar.jpg'
+import HomeImg from '../assets/home.png'
 
 import supabase from '../Client'
 
@@ -18,6 +19,7 @@ function Navigation({ userSession, checkForUserSession }) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
+    window.location = "/"
   }
 
   useEffect(() => {
@@ -25,10 +27,10 @@ function Navigation({ userSession, checkForUserSession }) {
   }, [])
 
   return (
-    <div className="screen-div">
+    <>
       <div className='top-nav-div'>
         <Link to="/">
-          <h1 className="poppins-bold blue">Kelly's CdramaHub</h1>
+          <h1 className="poppins-bold blue">CdramaHub</h1>
         </Link>
         <div className="btns-div">
           <div className="search-div">
@@ -42,10 +44,16 @@ function Navigation({ userSession, checkForUserSession }) {
                   <h3 className="poppins-medium">+Create</h3>
                 </div>} modal>
                 {close => ( //create custom close behavior
-                  <CreateForm onClose={() => close()}/>
+                  <CreateForm onClose={() => close()} userSession={userSession}/>
                 )}
                 </Popup>
-                <Popup trigger= {<img className="user-img" src={userImage} />} arrow={false}>
+                <Popup trigger= {
+                  (Object.keys(userSession.user.user_metadata).length > 0)
+                  ?
+                  (<img className="user-img" src={userSession.user.user_metadata.avatar_url} />)
+                  :
+                  (<img className="user-img" src={userImage} />)
+                  } arrow={false}>
                   <div className="home-options-div">
                     <input type="button" className="options-btn" value="Profile" />
                     <input type="button" onClick={handleSignOut} className="options-btn" value="Sign Out" />
@@ -66,12 +74,26 @@ function Navigation({ userSession, checkForUserSession }) {
       </div>
       <div className="main-div">
           <div className="side-nav-div">
-            {/* <h1>Side nav</h1> */}
-            <Link to="/" ><h3>Home</h3></Link>
+            <div className="side-nav-btns-div">
+              <Link to="/" >
+                <div className="side-nav-link">
+                  <img src={HomeImg}/>
+                  <h3>Home</h3>
+                </div>
+              </Link>
+            </div>
+            <div className="side-nav-btns-div">
+              <Link to="/" >
+                <div className="side-nav-link">
+                  <img/>
+                  <h3>A Thread</h3>
+                </div>
+              </Link>
+            </div>
           </div>
           <Outlet context={search}/>
       </div>
-    </div>
+    </>
   )
 }
 

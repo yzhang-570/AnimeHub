@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import './CreateForm.css'
 import supabase from '../Client.jsx'
+import userImg from '../assets/user-avatar.jpg'
 
-function CreateForm({ onClose }) {
+function CreateForm({ onClose, userSession }) {
 
-  const [newPost, setNewPost] = useState({ title: "", desc: "", image_url: ""})
+  const [newPost, setNewPost] = useState({ title: "", desc: "", image_url: "", display_name: "", profile_img: ""})
 
   const createPost = async (e) => {
     e.preventDefault()
+
     await supabase
-        .from('ForumPosts')
-        .insert(newPost)
+      .from('ForumPosts')
+      .insert(newPost)
     onClose()
+
+    window.location = "/"
     location.reload()
   }
 
@@ -19,6 +23,26 @@ function CreateForm({ onClose }) {
     setNewPost((prev) => (
         {...prev, [e.target.name]: e.target.value})
     )
+    setNewPost((prev) => (
+        {...prev, user_id: userSession.user.id})
+      )
+    if(Object.keys(userSession.user.user_metadata).length > 0) {
+      setNewPost((prev) => (
+        {...prev, display_name: userSession.user.user_metadata.name})
+      )
+      setNewPost((prev) => (
+        {...prev, profile_img: userSession.user.user_metadata.avatar_url})
+      )
+    }
+    else {
+      setNewPost((prev) => (
+        {...prev, display_name: "Guest"})
+      )
+      setNewPost((prev) => (
+        {...prev, profile_img: userImg})
+      )
+      console.log(userSession.user)
+    }
   }
   
   return (

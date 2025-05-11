@@ -20,12 +20,15 @@ function Post({ info }) {
             <div className="options">
               <p>More options</p>
             </div>
-            <div>
+            <div className="user-div">
+              <img className="post-user-img" src={info.profile_img} />
               <h3 className="title">{info.title}</h3>
+            </div>
+            <div>
               <p>{info.created_at}</p>
             </div>
         </div>
-        <h4>{info.desc}</h4>
+        {info.desc.length > 0 && <h4>{info.desc}</h4>}
         <button onClick={updateLikes} className="likes-btn">
             <h4>{info.likes} Likes</h4>
         </button>

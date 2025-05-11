@@ -16,6 +16,7 @@ function Comment({ info }) {
   return (
     <div className="comment-div">
       <div onClick={deleteComment} className="thread-options-btn"><p>Delete</p></div>
+      <img src={info.profile_img} />
       <h4><p>Comment:</p> {info.text}</h4>
       <p>{info.created_at}</p>
     </div>

@@ -3,16 +3,18 @@ import './Home.css'
 import Popup from 'reactjs-popup'
 import Post from './Post'
 import { Link, useOutletContext } from 'react-router-dom'
+import Sparkles from '../assets/sparkles.png'
 
 import supabase from '../Client.jsx'
 
-function Home() {
+function Home({ userSession }) {
   const [posts, setPosts] = useState([])
 
   const getData = async () => {
     const { data } = await supabase
     .from('ForumPosts')
     .select()
+    .order("created_at", {ascending: false})
     setPosts(data)
   }
 
@@ -25,6 +27,14 @@ function Home() {
       .from('ForumPosts')
       .select()
       .order([e.target.name], {ascending: false})
+      setPosts(data)
+  }
+
+  const handleSortOld = async (e) => {
+    const { data } = await supabase
+      .from('ForumPosts')
+      .select()
+      .order([e.target.name], {ascending: true})
       setPosts(data)
   }
 
@@ -55,11 +65,11 @@ function Home() {
         <div className="options-div">
           <input type="button" onClick={handleSort} name="likes" className="options-btn" value="Hot" />
           <input type="button" onClick={handleSort} name="created_at" className="options-btn" value="New" />
+          <input type="button" onClick={handleSortOld} name="created_at" className="options-btn" value="Old" />
         </div>
       </Popup>
 
       <div className="posts-div">
-        {/* <h3>main content</h3> */}
         {posts && posts.map(post => (
           <Link to={"/thread/" + post.id} key={post.id}><Post info={post}/></Link>
         ))}
@@ -67,7 +77,36 @@ function Home() {
       
     </div>
     <div className="right-rec-div">
-    <h1>some recs</h1>
+      <div className="recommendations-div">
+        {
+          userSession ?
+          (
+            (Object.keys(userSession.user.user_metadata).length > 0)
+            ?
+            (
+              <div className="rec-content-div">
+                <h2>Welcome to CdramaHub, </h2>
+                <h2 className="poppins-bold">{userSession.user.user_metadata.name}</h2>
+                <img className="welcome-img" src={Sparkles} />
+              </div>
+            )
+            :
+            (
+              <div className="rec-content-div">
+                <h2>Welcome to CdramaHub,</h2>
+                <h2 className="poppins-bold">Guest</h2>
+                <img className="welcome-img" src={Sparkles} />
+              </div>
+            )
+          )
+          :
+          (
+            <div className="rec-content-div">
+              <h2>Please sign in to see this message</h2>
+            </div>
+          )
+        }
+      </div>
     </div>
   </div>
   )

@@ -35,11 +35,11 @@ function App() {
     children: [
     {
       path: '',
-      element: <Home />,
+      element: <Home userSession={userSession}/>,
     },
     {
       path: 'thread/:id', //+ /:id
-      element: <PostPage />
+      element: <PostPage userSession={userSession}/>
     },
     {
       path: 'sign-in',
