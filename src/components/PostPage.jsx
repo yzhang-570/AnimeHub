@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../App.css'
+import './Navigation.css'
 import './PostPage.css'
 
 import EditForm from "./EditForm.jsx"

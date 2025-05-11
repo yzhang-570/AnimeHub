@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './CreateForm.css'
-import supabase from '../Client'
+import supabase from '../Client.jsx'
 
 function CreateForm({ onClose }) {
 
