@@ -6,6 +6,7 @@ import Popup from 'reactjs-popup'
 import CreateForm from './CreateForm'
 import userImage from '../assets/user-avatar.jpg'
 import HomeImg from '../assets/home.png'
+import UserIconImg from '../assets/user.png'
 
 import supabase from '../Client'
 
@@ -30,7 +31,7 @@ function Navigation({ userSession, checkForUserSession }) {
     <>
       <div className='top-nav-div'>
         <Link to="/">
-          <h1 className="poppins-bold blue">CdramaHub</h1>
+          <h1 className="poppins-bold blue">AnimeHub</h1>
         </Link>
         <div className="btns-div">
           <div className="search-div">
@@ -81,6 +82,21 @@ function Navigation({ userSession, checkForUserSession }) {
                   <h3>Home</h3>
                 </div>
               </Link>
+              {userSession ? 
+                (<Link to="/" >
+                  <div className="side-nav-link">
+                    <img src={UserIconImg}/>
+                    <h3>My Profile</h3>
+                  </div>
+                </Link>)
+                :
+                (<Link to="/sign-in" >
+                  <div className="side-nav-link">
+                    <img src={UserIconImg}/>
+                    <h3>My Profile</h3>
+                  </div>
+                </Link>)
+              }
             </div>
             <div className="side-nav-btns-div">
               <Link to="/" >

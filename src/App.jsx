@@ -7,7 +7,8 @@ import { useRoutes } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Home from './components/Home'
 import PostPage from './components/PostPage'
-import SignIn from './components/SignIn'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
 
 function App() {
 
@@ -29,24 +30,28 @@ function App() {
   }
 
   const routes = useRoutes([
-  {
-    path: '/',
-    element: <Navigation userSession={userSession} checkForUserSession={checkForUserSession}/>,
-    children: [
     {
-      path: '',
-      element: <Home userSession={userSession}/>,
-    },
-    {
-      path: 'thread/:id', //+ /:id
-      element: <PostPage userSession={userSession}/>
+      path: '/',
+      element: <Navigation userSession={userSession} checkForUserSession={checkForUserSession}/>,
+      children: [
+      {
+        path: '',
+        element: <Home userSession={userSession}/>,
+      },
+      {
+        path: 'thread/:id', //+ /:id
+        element: <PostPage userSession={userSession}/>
+      }
+      ]
     },
     {
       path: 'sign-in',
       element: <SignIn/>
+    },
+    {
+      path: 'sign-up',
+      element: <SignUp />
     }
-    ]
-  }
   ])
 
   return routes

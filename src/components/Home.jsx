@@ -85,7 +85,7 @@ function Home({ userSession }) {
             ?
             (
               <div className="rec-content-div">
-                <h2>Welcome to CdramaHub, </h2>
+                <h2>Welcome to AnimeHub, </h2>
                 <h2 className="poppins-bold">{userSession.user.user_metadata.name}</h2>
                 <img className="welcome-img" src={Sparkles} />
               </div>
@@ -93,7 +93,7 @@ function Home({ userSession }) {
             :
             (
               <div className="rec-content-div">
-                <h2>Welcome to CdramaHub,</h2>
+                <h2>Welcome to AnimeHub,</h2>
                 <h2 className="poppins-bold">Guest</h2>
                 <img className="welcome-img" src={Sparkles} />
               </div>
