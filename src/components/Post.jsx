@@ -1,6 +1,7 @@
 import React from 'react'
 import './Post.css'
-import supabase from '../Client'
+
+import { supabase } from '../Client'
 
 function Post({ info }) {
   
@@ -22,11 +23,12 @@ function Post({ info }) {
             </div>
             <div className="user-div">
               <img className="post-user-img" src={info.profile_img} />
-              <h3 className="title">{info.title}</h3>
+              <div className="user-div-text">
+                <h3 className="title">{info.title}</h3>
+                <h5>{info.display_name}</h5>
+              </div>
             </div>
-            <div>
-              <p>{info.created_at}</p>
-            </div>
+            <p>{info.created_at}</p>
         </div>
         {info.desc.length > 0 && <h4>{info.desc}</h4>}
         <button onClick={updateLikes} className="likes-btn">

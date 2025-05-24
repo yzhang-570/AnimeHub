@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import supabase from './Client'
 import { Link } from 'react-router-dom'
 
 import "./SignIn.css"
 import GoogleLogo from './assets/google-logo.webp'
 import UserIconImg from './assets/user-white.png'
+
+import { supabase } from './Client'
 
 export default function SignIn() {
   const [userInfo, setUserInfo] = useState({email: "", password: ""})

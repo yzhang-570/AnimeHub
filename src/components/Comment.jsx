@@ -1,7 +1,7 @@
 import React from 'react'
 import "./PostPage.css"
 
-import supabase from "../Client"
+import { supabase } from "../Client"
 
 function Comment({ info, userSession }) {
 

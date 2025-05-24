@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './components/Navigation.css'
 
-import supabase from './Client'
+import { supabase } from './Client'
 
 import { useRoutes } from 'react-router-dom'
 import Navigation from './components/Navigation'
@@ -9,6 +9,7 @@ import Home from './components/Home'
 import PostPage from './components/PostPage'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
+import ProfilePage from './ProfilePage'
 
 function App() {
 
@@ -39,10 +40,13 @@ function App() {
         element: <Home userSession={userSession}/>,
       },
       {
+      path: 'profile/:id',
+      element: <ProfilePage/>
+      },
+      {
         path: 'thread/:id', //+ /:id
         element: <PostPage userSession={userSession}/>
-      }
-      ]
+      }]
     },
     {
       path: 'sign-in',

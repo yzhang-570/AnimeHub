@@ -5,7 +5,7 @@ import Post from './Post'
 import { Link, useOutletContext } from 'react-router-dom'
 import Sparkles from '../assets/sparkles.png'
 
-import supabase from '../Client.jsx'
+import { supabase } from '../Client.jsx'
 
 function Home({ userSession }) {
   const [posts, setPosts] = useState([])
@@ -63,8 +63,8 @@ function Home({ userSession }) {
 
       <Popup trigger= {<div className="sort-options"><p>Sort by ↓</p></div>} arrow={false}>
         <div className="options-div">
-          <input type="button" onClick={handleSort} name="likes" className="options-btn" value="Hot" />
           <input type="button" onClick={handleSort} name="created_at" className="options-btn" value="New" />
+          <input type="button" onClick={handleSort} name="likes" className="options-btn" value="Hot" />
           <input type="button" onClick={handleSortOld} name="created_at" className="options-btn" value="Old" />
         </div>
       </Popup>
@@ -77,7 +77,7 @@ function Home({ userSession }) {
       
     </div>
     <div className="right-rec-div">
-      <div className="recommendations-div">
+      <div className="recommendations-div signed-in">
         {
           userSession ?
           (
@@ -85,16 +85,16 @@ function Home({ userSession }) {
             ?
             (
               <div className="rec-content-div">
-                <h2>Welcome to AnimeHub, </h2>
-                <h2 className="poppins-bold">{userSession.user.user_metadata.name}</h2>
+                <h2 className="white">Welcome to AnimeHub, </h2>
+                <h2 className="poppins-bold white">{userSession.user.user_metadata.name}</h2>
                 <img className="welcome-img" src={Sparkles} />
               </div>
             )
             :
             (
               <div className="rec-content-div">
-                <h2>Welcome to AnimeHub,</h2>
-                <h2 className="poppins-bold">Guest</h2>
+                <h2 className="white">Welcome to AnimeHub,</h2>
+                <h2 className="poppins-bold white">Guest</h2>
                 <img className="welcome-img" src={Sparkles} />
               </div>
             )
@@ -102,7 +102,7 @@ function Home({ userSession }) {
           :
           (
             <div className="rec-content-div">
-              <h2>Please sign in to see this message</h2>
+              <h2 className="white">Please sign in to see this message</h2>
             </div>
           )
         }

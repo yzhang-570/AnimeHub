@@ -8,10 +8,10 @@ import HeartImg from '../assets/heart.png'
 import CommentImg from '../assets/comment-dots.png'
 import userImg from '../assets/user-avatar.jpg'
 
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 
-import supabase from '../Client.jsx'
+import { supabase } from '../Client.jsx'
 
 function PostPage({ userSession }) {
   
@@ -130,8 +130,11 @@ function PostPage({ userSession }) {
                   </div>
                 </Popup>}
                 <div className="row">
-                  <img className="profile-img" src={info[0].profile_img}/>
-                  <h3>{info[0].display_name}</h3>
+                  <Link to={`/profile/${info[0].user_id}`}><img className="profile-img" src={info[0].profile_img}/></Link>
+                  <div>
+                    <Link to={`/profile/${info[0].user_id}`}><h3>{info[0].display_name}</h3></Link>
+                    <h5>{info[0].created_at}</h5>
+                  </div>
                 </div>
                 <div className="row">
                   <h1 className="title">{info[0].title}</h1>
@@ -142,7 +145,6 @@ function PostPage({ userSession }) {
                       )}
                   </Popup>}
                 </div>
-                <h4>{info[0].created_at}</h4>
               </div>
 
               <h4>{info[0].desc}</h4>

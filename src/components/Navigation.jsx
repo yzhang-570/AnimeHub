@@ -8,7 +8,7 @@ import userImage from '../assets/user-avatar.jpg'
 import HomeImg from '../assets/home.png'
 import UserIconImg from '../assets/user.png'
 
-import supabase from '../Client'
+import { supabase } from '../Client'
 
 function Navigation({ userSession, checkForUserSession }) {
 
@@ -35,7 +35,7 @@ function Navigation({ userSession, checkForUserSession }) {
         </Link>
         <div className="btns-div">
           <div className="search-div">
-            <input className="search-bar" type="text" value={search} onChange={handleChange} placeholder="Search CdramaHub"/>
+            <input className="search-bar" type="text" value={search} onChange={handleChange} placeholder="Search AnimeHub"/>
           </div>
           {
             userSession ?
@@ -56,7 +56,7 @@ function Navigation({ userSession, checkForUserSession }) {
                   (<img className="user-img" src={userImage} />)
                   } arrow={false}>
                   <div className="home-options-div">
-                    <input type="button" className="options-btn" value="Profile" />
+                    <Link to={`/profile/${userSession.user.id}`}><div className="options-btn">Profile</div></Link>
                     <input type="button" onClick={handleSignOut} className="options-btn" value="Sign Out" />
                   </div>
                 </Popup>
@@ -83,7 +83,7 @@ function Navigation({ userSession, checkForUserSession }) {
                 </div>
               </Link>
               {userSession ? 
-                (<Link to="/" >
+                (<Link to={`/profile/${userSession.user.id}`} >
                   <div className="side-nav-link">
                     <img src={UserIconImg}/>
                     <h3>My Profile</h3>
@@ -105,6 +105,10 @@ function Navigation({ userSession, checkForUserSession }) {
                   <h3>A Thread</h3>
                 </div>
               </Link>
+              <div onClick={handleSignOut} className="side-nav-link">
+                <img/>
+                <h3>Sign Out</h3>
+              </div>
             </div>
           </div>
           <Outlet context={search}/>

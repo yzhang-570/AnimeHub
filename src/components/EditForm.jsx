@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './CreateForm.css'
-import supabase from '../Client'
+
+import { supabase } from '../Client'
 
 function EditForm({ onClose, info }) {
 

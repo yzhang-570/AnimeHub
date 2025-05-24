@@ -30,11 +30,13 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(0, 71, 125, 0.3)), url("../assets/home-banner.jpg");
+  background-size: 48.5vh;
+  background-repeat: no-repeat;
 }
 
 .rec-content-div {
   margin-top: 10vh;
-
   max-width: 15vw;
   text-align: center;
 }

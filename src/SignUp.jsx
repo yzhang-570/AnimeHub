@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import supabase from './Client'
 import { Link } from 'react-router-dom'
 
 import "./SignIn.css"
+
+import { supabase } from './Client'
 
 export default function SignUp() {
   const [userInfo, setUserInfo] = useState({email: "", password: ""})
