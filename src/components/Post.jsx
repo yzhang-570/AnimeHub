@@ -22,7 +22,7 @@ function Post({ info }) {
               <p>More options</p>
             </div>
             <div className="user-div">
-              <img className="post-user-img" src={info.profile_img} />
+              <img className="post-user-img" src={info.profile_img} alt="profile" />
               <div className="user-div-text">
                 <h3 className="title">{info.title}</h3>
                 <h5>{info.display_name}</h5>

@@ -8,8 +8,10 @@ import AnimeInfoButton from './AnimeInfoButton'
 
 function CreateForm({ onClose, userSession }) {
 
-  const [newPost, setNewPost] = useState({ title: "", desc: "", image_url: "", display_name: "", profile_img: "", topic_id: ""})
+  const [newPost, setNewPost] = useState({ title: "", desc: "", image_url: "", display_name: "", profile_img: "", anime_id: ""})
+  const[animeTopicDisplay, setAnimeTopicDisplay] = useState({})
   const [searchTabOpen, setSearchTabOpen] = useState(false)
+  
   const [searchText, setSearchText] = useState("")
   const [animeSearchData, setAnimeSearchData] = useState([])
  
@@ -50,14 +52,19 @@ function CreateForm({ onClose, userSession }) {
       setNewPost((prev) => (
         {...prev, profile_img: userImg})
       )
-      console.log(userSession.user)
     }
   }
   
-  const setPostTopic = (e) => {
-    console.log(e)
+  const toggleSearchTab = () => {
+    setSearchTabOpen(!searchTabOpen)
+  }
+
+  const setPostTopic = ({ id, title, image }) => {
     setSearchTabOpen(false)
-    setNewPost((prev) => ({...prev, topic_id: e.target.value}))
+    setNewPost((prev) => ({...prev, anime_id: id}))
+    setAnimeTopicDisplay((prev) =>
+      ({...prev, anime_title: title, 
+       anime_image: image}))
     setSearchText("")
   }
 
@@ -68,7 +75,8 @@ function CreateForm({ onClose, userSession }) {
   useEffect(() => {
     const getAnimeResults = async () => {
       if(searchText.trim() !== "") {
-        const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchText}&sfw=true&limit=4`)
+        const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchText}&sfw=true&limit=10`)
+        // const response = await fetch(`https://api.jikan.moe/v4/anime/59571`)
         const data = await response.json()
         setAnimeSearchData(data.data)
       }
@@ -83,13 +91,6 @@ function CreateForm({ onClose, userSession }) {
   }, [searchText])
 
   // console.log(animeSearchData)
-  /*
-    1. (done) get search working first
-    2. (done) fix rate limiting problem
-    3. (done) display results
-    4. save selected anime -> how to store/get id
-    5. display topic on post
-  */
 
   return (
     <div className="popup-bg">
@@ -101,11 +102,22 @@ function CreateForm({ onClose, userSession }) {
             </div>
 
             {/* Search prompt button */}
-            {newPost.topic_id === ""
+            {Object.keys(animeTopicDisplay).length === 0
               ?
-              (<button className="set-topic-btn" onClick={() => setSearchTabOpen(true)}><h3>+ Add Topic</h3></button>)
+              (<button className="set-topic-btn" onClick={toggleSearchTab}><h3>+ Add Topic</h3></button>)
               :
-              (<button className="set-topic-btn" onClick={() => setSearchTabOpen(true)}><h3>{newPost.topic_id}</h3></button>)
+              (<button className="set-topic-btn topic-display" onClick={toggleSearchTab}>
+                <img src={animeTopicDisplay.anime_image} />
+                <div className="column">
+                  <h3>Topic selected:</h3>
+                  {
+                    animeTopicDisplay.anime_title === null ?
+                    (<h2>Unknown Title</h2>)
+                    :
+                    (<h2>{animeTopicDisplay.anime_title}</h2>)
+                  }
+                </div>
+               </button>)
             }
 
             {/* Search Window */}
@@ -114,7 +126,7 @@ function CreateForm({ onClose, userSession }) {
               <div className="search-results">
               {animeSearchData.length !== 0 ?
                 (animeSearchData.map((animeInfo) => (
-                  <div key={animeInfo.url} onClick={setPostTopic}>
+                  <div key={crypto.randomUUID()}>
                       <AnimeInfoButton animeInfo={animeInfo} setPostTopic={setPostTopic}/>
                   </div>
                 )))

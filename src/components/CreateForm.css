@@ -37,8 +37,23 @@
   z-index: 500;
 }
 
-.add-topic-btn:hover {
+.set-topic-btn:hover {
   background-color: var(--border-grey);
+}
+
+.topic-display{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1vw;
+  padding-left: 2vw;
+}
+
+.topic-display img {
+  height: 10vh;
+  width: 4vw;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .topic-search-div {

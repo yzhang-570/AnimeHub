@@ -1,9 +1,18 @@
 import React from 'react'
 import './CreateForm.css'
 
-function AnimeInfoButton({ animeInfo }) {
+function AnimeInfoButton({ animeInfo, setPostTopic }) {
+
+  const handleClick = () => {
+    setPostTopic({
+      "id": animeInfo.mal_id,
+      "title": animeInfo.title_english,
+      "image": animeInfo.images.jpg.image_url
+    })
+  }
+
   return (
-    <div className="topic-option-btn">
+    <div className="topic-option-btn" onClick={handleClick}>
         <img src={animeInfo.images.jpg.image_url}/>
         <div className="topic-option-text">
             <div>

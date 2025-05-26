@@ -71,12 +71,6 @@ html {
   background-color: var(--dark-hover-grey);
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .profile-img {
   height: 5vh;
   border-radius: 15px;
