@@ -12,6 +12,7 @@ function EditForm({ onClose, info }) {
   
   const [searchText, setSearchText] = useState("")
   const [animeSearchData, setAnimeSearchData] = useState([])
+  const [errorShowing, setErrorShowing] = useState(false)
 
   const getData = async () => {
     const { data } = await supabase
@@ -24,15 +25,21 @@ function EditForm({ onClose, info }) {
   
   const updatePost = async (e) => {
     e.preventDefault()
-    await supabase
-      .from("ForumPosts")
-      .update(post)
-      .eq("id", post.id)
+
+    var currTitle = post.title;
+    if(currTitle.trim() !== "") {
+      await supabase
+        .from("ForumPosts")
+        .update(post)
+        .eq("id", post.id)
     
       const data = await getData()
-    setPost(data)
-    onClose()
-    location.reload()
+      setPost(data)
+      location.reload()
+    }
+    else {
+      setErrorShowing(true)
+    }
   }
 
   const handleChange = (e) =>  {
@@ -87,6 +94,10 @@ function EditForm({ onClose, info }) {
     return () => clearTimeout(delayAPICall)
   }, [searchText])
 
+    const disableError = () => {
+    setErrorShowing(false)
+  }
+
   return (
   <div className="popup-bg">
     <div className="popup-div">
@@ -134,10 +145,13 @@ function EditForm({ onClose, info }) {
         </div>
       </div>}
 
-      <input type="text" value={post.title} className="text-field" name="title" onChange={handleChange} placeholder="Title"></input>
+      <input type="text" value={post.title} className={`text-field ${errorShowing ? "error-border" : ""}`} onFocus={disableError} name="title" onChange={handleChange} placeholder="Title"></input>
       <textarea rows="10" value={post.desc} className="text-field" name="desc" onChange={handleChange} placeholder="Description (optional)"></textarea>
       <input type="text" value={post.image_url} className="text-field" name="image_url" onChange={handleChange} placeholder="enter image url here"></input>
-      <input type="button" onClick={updatePost} className="post-btn" value="update"/>
+      <div className="row">
+        <input type="button" className="post-btn" value="update" onClick={updatePost}/>
+        {errorShowing && <h4 className="error-text red">Title cannot be empty</h4>}
+      </div>
     </div>
   </div>
   )

@@ -41,6 +41,10 @@ html{
   color: rgb(0, 166, 255);
 }
 
+.red {
+  color: red;
+}
+
 .white {
   color: white;
 }

@@ -98,18 +98,18 @@ function Navigation({ userSession, checkForUserSession }) {
                 </Link>)
               }
             </div>
-            <div className="side-nav-btns-div">
-              <Link to="/" >
+            {userSession && <div className="side-nav-btns-div">
+              {/* <Link to="/" >
                 <div className="side-nav-link">
                   <img/>
                   <h3>A Thread</h3>
                 </div>
-              </Link>
+              </Link> */}
               <div onClick={handleSignOut} className="side-nav-link">
                 <img/>
                 <h3>Sign Out</h3>
               </div>
-            </div>
+            </div>}
           </div>
           <Outlet context={search}/>
       </div>

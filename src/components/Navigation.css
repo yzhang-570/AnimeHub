@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1vw;
+  z-index: 5;
 }
 
 .btns-div {

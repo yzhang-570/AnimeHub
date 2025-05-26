@@ -13,7 +13,7 @@ function Comment({ info, userSession }) {
     location.reload()
   }
 
-  console.log(info)
+  // console.log(info)
 
   return (
     <div className="comment-div">

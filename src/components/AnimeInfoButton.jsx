@@ -4,11 +4,20 @@ import './CreateForm.css'
 function AnimeInfoButton({ animeInfo, setPostTopic }) {
 
   const handleClick = () => {
-    setPostTopic({
-      "id": animeInfo.mal_id,
-      "title": animeInfo.title_english,
-      "image": animeInfo.images.jpg.image_url
-    })
+    if(animeInfo.title_english === null) {
+        setPostTopic({
+        "id": animeInfo.mal_id,
+        "title": animeInfo.title,
+        "image": animeInfo.images.jpg.image_url
+      })
+    }
+    else {
+      setPostTopic({
+        "id": animeInfo.mal_id,
+        "title": animeInfo.title_english,
+        "image": animeInfo.images.jpg.image_url
+      })
+    }
   }
 
   return (
@@ -16,12 +25,20 @@ function AnimeInfoButton({ animeInfo, setPostTopic }) {
         <img src={animeInfo.images.jpg.image_url}/>
         <div className="topic-option-text">
             <div>
-            <h3>{animeInfo.title_english} (
-                {animeInfo.year !== null ?
+            {animeInfo.title_english !== null ?
+              (<h3>{animeInfo.title_english}
+              ({animeInfo.year !== null ?
                 (animeInfo.year)
                 :
                 ("Unknown")}
-                )</h3>
+              )</h3>)
+              :
+              ((<h3>{animeInfo.title}
+              ({animeInfo.year !== null ?
+                (animeInfo.year)
+                :
+                ("Unknown")}
+              )</h3>))}
             <p>{animeInfo.title_japanese}</p>
             </div>
             <p className="anime-desc">{animeInfo.synopsis}</p>

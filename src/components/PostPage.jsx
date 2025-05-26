@@ -18,6 +18,7 @@ function PostPage({ userSession }) {
   const params = useParams()
 
   const [info, setInfo] = useState({})
+  const [animeDetails, setAnimeDetails] = useState({})
   const [newComment, setNewComment] = useState({text: "", post_id: params.id, user_id: "", display_name: "", profile_img:""})
   const [comments, setComments] = useState([])
 
@@ -54,8 +55,6 @@ function PostPage({ userSession }) {
       
     window.location = "/"
   }
-
-  // console.log(userSession)
 
   const handleCommentChange = (e) => {
     setNewComment((prev) => (
@@ -107,13 +106,24 @@ function PostPage({ userSession }) {
     setComments(data)
   }
   
+  const getAnimeInfo = async () => {
+    if(Object.keys(info).length !== 0 && info[0].anime_id !== null) {
+      const response = await fetch(`https://api.jikan.moe/v4/anime/${info[0].anime_id}`)
+      const data = await response.json()
+      const animeInfo = data.data;
+      setAnimeDetails(animeInfo)
+    }
+  }
+
+  //ensure that anime details are updated in case anime id changes
+  useEffect(() => {
+    getAnimeInfo()
+  }, [info])
+
   useEffect(() => {
     updateData()
     retrieveComments()
   }, [])
-
-  // console.log(userSession)
-  // console.log(info)
 
   return (
     <div className="main-div">
@@ -179,8 +189,26 @@ function PostPage({ userSession }) {
       </div>
       
       <div className="right-banner-div">
-        <div className="img-div">
-        </div>
+        {
+          Object.keys(animeDetails).length !== 0 && 
+          <div className="banner-img">
+              <img src={animeDetails.images.jpg.large_image_url} />
+              <div className="banner-text-div">
+                {
+                  animeDetails.title_english !== null ?
+                  (<><h1 className="white banner-text bold">{animeDetails.title_english}</h1>
+                  <h4 className="white banner-text">{animeDetails.title_japanese}</h4></>)
+                  :
+                  (<h1 className="white banner-text bold">{animeDetails.title_japanese}</h1>)
+                }
+                <div>
+                  {animeDetails.studios.length !== 0 && <h4 className="white banner-text">Studio: {animeDetails.studios[0].name}</h4>}
+                  {animeDetails.rating !== null && <h4 className="white banner-text">Rating: {animeDetails.rating}</h4>}
+                  {animeDetails.demographics.length !== 0 && <h3 className="white banner-text">Genre: {animeDetails.demographics[0].name}</h3>}
+                </div>
+              </div>
+          </div>
+        }
       </div>
 
     </div>

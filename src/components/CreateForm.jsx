@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './CreateForm.css'
 import { supabase } from '../Client.jsx'
 import userImg from '../assets/user-avatar.jpg'
-import { Popup } from 'reactjs-popup'
 
 import AnimeInfoButton from './AnimeInfoButton'
 
@@ -14,17 +13,22 @@ function CreateForm({ onClose, userSession }) {
   
   const [searchText, setSearchText] = useState("")
   const [animeSearchData, setAnimeSearchData] = useState([])
+  const [errorShowing, setErrorShowing] = useState(false)
  
   const createPost = async (e) => {
     e.preventDefault()
 
-    await supabase
-      .from('ForumPosts')
-      .insert(newPost)
-    onClose()
-
-    window.location = "/"
-    location.reload()
+    var currTitle = newPost.title
+    if(currTitle.trim() !== "") {
+      await supabase
+        .from('ForumPosts')
+        .insert(newPost)
+      window.location = "/"
+      location.reload()
+    }
+    else {
+      setErrorShowing(true)
+    }
   }
 
   const handleChange = (e) =>  {
@@ -76,7 +80,6 @@ function CreateForm({ onClose, userSession }) {
     const getAnimeResults = async () => {
       if(searchText.trim() !== "") {
         const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchText}&sfw=true&limit=10`)
-        // const response = await fetch(`https://api.jikan.moe/v4/anime/59571`)
         const data = await response.json()
         setAnimeSearchData(data.data)
       }
@@ -90,8 +93,11 @@ function CreateForm({ onClose, userSession }) {
     return () => clearTimeout(delayAPICall)
   }, [searchText])
 
+  const disableError = () => {
+    setErrorShowing(false)
+  }
   // console.log(animeSearchData)
-
+  
   return (
     <div className="popup-bg">
         <div className="popup-div">
@@ -104,7 +110,7 @@ function CreateForm({ onClose, userSession }) {
             {/* Search prompt button */}
             {Object.keys(animeTopicDisplay).length === 0
               ?
-              (<button className="set-topic-btn" onClick={toggleSearchTab}><h3>+ Add Topic</h3></button>)
+              (<button className="set-topic-btn" onClick={toggleSearchTab}><h3>+ Add Topic (please allow 1-2s for loading)</h3></button>)
               :
               (<button className="set-topic-btn topic-display" onClick={toggleSearchTab}>
                 <img src={animeTopicDisplay.anime_image} />
@@ -140,11 +146,13 @@ function CreateForm({ onClose, userSession }) {
               </div>
             </div>}
 
-            <input type="text" className="text-field" name="title" onChange={handleChange} placeholder="Title"></input>
+            <input type="text" className={`text-field ${errorShowing ? "error-border" : ""}`} name="title" onFocus={disableError} onChange={handleChange} placeholder="Title*"></input>
             <textarea rows="10" className="text-field" name="desc" onChange={handleChange} placeholder="Description (optional)"></textarea>
-            <input type="text" className="text-field" name="image_url" onChange={handleChange} placeholder="enter image url here"></input>
-            <input type="button" className="post-btn" value="Post" onClick={createPost}/>
-
+            <input type="text" className="text-field" name="image_url" onChange={handleChange} placeholder="Image url (optional)"></input>
+            <div className="row">
+              <input type="button" className="post-btn" value="Post" onClick={createPost}/>
+              {errorShowing && <h4 className="error-text red">Title cannot be empty</h4>}
+            </div>
         </div>
     </div>
   )
