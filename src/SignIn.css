@@ -104,3 +104,7 @@ hr {
 .login-img-small {
     height: 2.5vh;
 }
+
+.error-div {
+    height: 1vh;
+}

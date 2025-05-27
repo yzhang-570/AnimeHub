@@ -57,6 +57,8 @@ function Home({ userSession }) {
     }
   }, [search])
 
+  console.log(userSession)
+  
   return (
   <div className="main-div">
     <div className="content-div">

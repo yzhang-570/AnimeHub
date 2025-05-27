@@ -9,6 +9,8 @@ import { supabase } from './Client'
 
 export default function SignIn() {
   const [userInfo, setUserInfo] = useState({email: "", password: ""})
+  const [errorShowing, setErrorShowing] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("error message")
 
   /*
   create account with email
@@ -20,11 +22,28 @@ export default function SignIn() {
   }
 
   const signIn = async() => {
-    await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: userInfo.email, 
       password: userInfo.password
     })
-    window.location = "/"
+
+
+    if (userInfo.email === "") {
+      setErrorMessage("Email cannot be empty.")
+      setErrorShowing(true)
+    }
+    else if (userInfo.password === "") {
+      setErrorMessage("Password cannot be empty.")
+      setErrorShowing(true)
+    }
+    else if (error == "AuthApiError: Invalid login credentials") {
+      setErrorMessage("Incorrect email or password.")
+      setErrorShowing(true)
+    }
+    else {
+      //success
+      window.location = "/"
+    }
   }
 
   const googleSignIn = async () => {
@@ -38,15 +57,18 @@ export default function SignIn() {
     window.location = "/"
   }
 
+  const disableErrorMessage = () => {
+    setErrorShowing(false)
+  }
+
   return (
     <div className="login-main-div">
       <div className="login-left-div">
         <div className="login-content-div">
           <h1 className="poppins-bold" id="header">Login to<h2 className="poppins-bold blue">AnimeHub</h2></h1>
           <div className="login-text-div">
-            <input type="text" className="text-input" value={userInfo.email} name="email" placeholder="Enter email" onChange={handleChange} />
-            <input type="text" className="text-input" value={userInfo.password} name="password" placeholder="Enter password" onChange={handleChange} />
-            {/* <input type="button" onClick={signUp} value="Sign Up" /> */}
+            <input type="text" className="text-input" onClick={disableErrorMessage} value={userInfo.email} name="email" placeholder="Enter email" onChange={handleChange} />
+            <input type="text" className="text-input" onClick={disableErrorMessage} value={userInfo.password} name="password" placeholder="Enter password" onChange={handleChange} />
             <input type="button" className="sign-in btn" onClick={signIn} value="Sign in" />
             <div className="row">
               <hr className="white divider"/>
@@ -66,6 +88,9 @@ export default function SignIn() {
               </button>
             </div>
             <h4 className="white">Don't have an account? <Link to="/sign-up"><strong className="blue bold">Sign up</strong></Link></h4>
+            <div className="error-div">
+              {errorShowing && <h4 className="red">{errorMessage}</h4>}
+            </div>
           </div>
         </div>
       </div>

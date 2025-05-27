@@ -49,7 +49,7 @@ function Navigation({ userSession, checkForUserSession }) {
                 )}
                 </Popup>
                 <Popup trigger= {
-                  (Object.keys(userSession.user.user_metadata).length > 0)
+                  (Object.keys(userSession.user.user_metadata).length > 0 && userSession.user.user_metadata.avatar_url)
                   ?
                   (<img className="user-img" src={userSession.user.user_metadata.avatar_url} />)
                   :
