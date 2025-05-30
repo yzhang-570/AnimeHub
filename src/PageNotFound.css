@@ -1,0 +1,22 @@
+.not-found-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 91.9vh;
+    width: 100vw;
+    flex-direction: column;
+}
+
+.button-div {
+  background-color: var(--border-grey);
+  padding: 0.75rem 0.75rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.button-div:hover {
+  background-color: var(--dark-hover-grey);
+}

@@ -10,6 +10,7 @@ import PostPage from './components/PostPage'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import ProfilePage from './ProfilePage'
+import PageNotFound from './PageNotFound'
 
 function App() {
 
@@ -35,6 +36,10 @@ function App() {
       path: '/',
       element: <Navigation userSession={userSession} checkForUserSession={checkForUserSession}/>,
       children: [
+      {
+        path: '*',
+        element: <PageNotFound />
+      },
       {
         path: '',
         element: <Home userSession={userSession}/>,
