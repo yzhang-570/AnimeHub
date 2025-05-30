@@ -1,0 +1,7 @@
+.profile-main-div {
+    width: 100vw;
+    height: 91.9vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

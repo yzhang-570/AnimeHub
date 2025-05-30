@@ -16,22 +16,22 @@ function Post({ info }) {
     e.stopPropagation()
   }
 
-  const getAnimeInfo = async () => {
-    if(Object.keys(info).length !== 0 && info.anime_id && info.anime_id !== null) {
-      const response = await fetch(`https://api.jikan.moe/v4/anime/${info.anime_id}`)
-      const data = await response.json()
-      const animeInfo = data.data;
-      // console.log(animeInfo)
-      setAnimeDetails(animeInfo)
-    }
-  }
+  // const getAnimeInfo = async () => {
+  //   if(Object.keys(info).length !== 0 && info.anime_id && info.anime_id !== null) {
+  //     const response = await fetch(`https://api.jikan.moe/v4/anime/${info.anime_id}`)
+  //     const data = await response.json()
+  //     const animeInfo = data.data;
+  //     // console.log(animeInfo)
+  //     setAnimeDetails(animeInfo)
+  //   }
+  // }
 
-  console.log(info)
+  // console.log(info)
   
   //ensure that anime details are updated in case anime id changes
-  useEffect(() => {
-    getAnimeInfo()
-  }, [info])
+  // useEffect(() => {
+  //   getAnimeInfo()
+  // }, [info])
 
   return (
     <div className="post-border">
@@ -55,7 +55,7 @@ function Post({ info }) {
               <h4>{info.likes} Likes</h4>
           </button>
         </div>
-        {Object.keys(animeDetails).length !== 0 && <img className="post-img" src={animeDetails.images.jpg.image_url}/>}
+        {/* {Object.keys(animeDetails).length !== 0 && <img className="post-img" src={animeDetails.images.jpg.image_url}/>} */}
       </div>
     </div>
   )

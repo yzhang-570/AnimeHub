@@ -37,13 +37,19 @@ function PostPage({ userSession }) {
   }
 
   const updateLikes = async (e) => {
-    const curr = await getData()
-    const numLikes = curr[0].likes
-    await supabase
-      .from("ForumPosts")
-      .update({likes: numLikes + 1})
-      .eq("id", params.id)
-    updateData()
+    if(userSession) {
+      const curr = await getData()
+      const numLikes = curr[0].likes
+      await supabase
+        .from("ForumPosts")
+        .update({likes: numLikes + 1})
+        .eq("id", params.id)
+      updateData()
+    }
+    else {
+      console.log("ERROR: Please sign in")
+      window.location = "/sign-in"
+    }
   }
   
   const handleDelete = async (e) => {
@@ -107,7 +113,7 @@ function PostPage({ userSession }) {
   }
   
   const getAnimeInfo = async () => {
-    if(Object.keys(info).length !== 0 && info[0].anime_id !== null) {
+    if(Object.keys(info).length !== 0 && info[0].anime_id) {
       const response = await fetch(`https://api.jikan.moe/v4/anime/${info[0].anime_id}`)
       const data = await response.json()
       const animeInfo = data.data;

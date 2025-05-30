@@ -1,13 +1,26 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient("https://mcuhjkedegqnyhumlerp.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jdWhqa2VkZWdxbnlodW1sZXJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0ODA1NzAsImV4cCI6MjA2MDA1NjU3MH0.dEJquW6-e5_CNx0kHRyLgLNAMG_2uQLqXs7BTOrDcrM")
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY
 
-const service_role_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jdWhqa2VkZWdxbnlodW1sZXJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDQ4MDU3MCwiZXhwIjoyMDYwMDU2NTcwfQ.TeGcEArddV0refFhuSl5NRMAx0PqCQwp4oyiGrW51Lo"
-const supabaseAdmin = createClient("https://mcuhjkedegqnyhumlerp.supabase.co", service_role_key, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
-  }
-})
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
-export { supabase, supabaseAdmin }
+// export default supabase
+
+// import { createClient } from '@supabase/supabase-js'
+
+// const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+// const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY
+// const SERVICE_ROLE_KEY = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+
+// const supabase = createClient("https://mcuhjkedegqnyhumlerp.supabase.co", "6aLEITZowCdpWzPIQpoLttJ+p8C5vsD/h5zMmIT3CUDD9LTrKEHBvdEfRGzdttI9MSXil55ziesERYZGQ6JxSQ==")
+
+/* temporarily remove for deployment */
+// const supabaseAdmin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+//   auth: {
+//     autoRefreshToken: false,
+//     persistSession: false
+//   }
+// })
+
+export { supabase}

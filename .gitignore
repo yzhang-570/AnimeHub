@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#API Keys
+.env
+
+#deployment
+/dist
