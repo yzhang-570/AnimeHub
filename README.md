@@ -1,92 +1,59 @@
-# Web Development Final Project - *CdramaHub*
+<a href="https://graceful-platypus-f3b0b6.netlify.app/">![image](https://github.com/user-attachments/assets/afb5a554-2164-47c4-9589-095e6cc79cd4)</a>
 
-Submitted by: **Yuwen Zhang**
+## A forum for sharing about anime
+- <a href="https://graceful-platypus-f3b0b6.netlify.app/">Visit here!</a>
 
-This web app: **Provides a platform that allows users to share and discuss their opinions on different topics.**
+## Showcase
+<table>
+  <tr>
+    <td><img width=500 src="https://github.com/user-attachments/assets/eccd7b6d-ba10-49a1-89a0-edfa993b5826"/></td>
+    <td><img width=500 src="https://github.com/user-attachments/assets/d9eba0b0-18ba-4a86-956a-28157efcff4b"/></td>
+  </tr>
+  <tr>
+    <td><img width=500 src="https://github.com/user-attachments/assets/0c07375b-f612-4a6c-b24b-f05ce53b2575"/></td>
+    <td><img width=500 src="https://github.com/user-attachments/assets/739dbb8c-31e6-4589-8225-2732ab3241e8"/></td>
+  </tr>
+</table>
 
-Time spent: **10+** hours spent in total
+## Features
+* Account creation through email or Google and option to continue as Guest
+* Creating, editing, and deleting own posts
+* Selecting from up to 13k+ different anime topics pulled from Jikan API to assign to posts
+* Interacting with others' posts via likes and comments
+* Sorting posts using filters and searching posts by title
 
-## Required Features
+Future goals:
+* Develop user profile page
+* Allow sorting posts by topic
 
-The following **required** functionality is completed:
+## Getting Started
+1. Install dependencies
+```bash
+npm i
+npm i react-router-dom
+npm install @supabase/supabase-js
+npm install reactjs-popup
+```
 
+2. Set up environment variables
+```bash
+#.env
 
-- [X] **Web app includes a create form that allows the user to create posts**
-  - Form requires users to add a post title
-  - Forms should have the *option* for users to add: 
-    - additional textual content
-    - an image added as an external image URL
-- [X] **Web app includes a home feed displaying previously created posts**
-  - Web app must include home feed displaying previously created posts
-  - By default, each post on the posts feed should show only the post's:
-    - creation time
-    - title 
-    - upvotes count
-  - Clicking on a post should direct the user to a new page for the selected post
-- [X] **Users can view posts in different ways**
-  - Users can sort posts by either:
-    -  creation time
-    -  upvotes count
-  - Users can search for posts by title
-- [X] **Users can interact with each post in different ways**
-  - The app includes a separate post page for each created post when clicked, where any additional information is shown, including:
-    - content
-    - image
-    - comments
-  - Users can leave comments underneath a post on the post page
-  - Each post includes an upvote button on the post page. 
-    - Each click increases the post's upvotes count by one
-    - Users can upvote any post any number of times
+VITE_SUPABASE_URL=[insert your project url]
+VITE_SUPABASE_KEY=[insert your anon key]
+```
 
-- [X] **A post that a user previously created can be edited or deleted from its post pages**
-  - After a user creates a new post, they can go back and edit the post
-  - A previously created post can be deleted from its post page
+3. Run locally
+```bash
+npm run dev
+```
 
-The following **optional** features are implemented:
+## Built With
+![React.js](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Supabase](https://img.shields.io/badge/Supabase-36d421?style=for-the-badge&logo=Supabase&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 
-
-- [ ] Web app implements pseudo-authentication
-  - Users can only edit and delete posts or delete comments by entering the secret key, which is set by the user during post creation
-  - **or** upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them
-  - For both options, only the original user author of a post can update or delete it
-- [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post
-  - Users can repost a previous post by referencing its post ID
-  - On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [ ] Users can customize the interface
-  - e.g., selecting the color scheme or showing the content and image of each post on the home feed
-- [ ] Users can add more characterics to their posts
-  - Users can share and view web videos
-  - Users can set flags such as "Question" or "Opinion" while creating a post
-  - Users can filter posts by flags on the home feed
-  - Users can upload images directly from their local machine as an image file
-- [ ] Web app displays a loading animation whenever data is being fetched
-
-The following **additional** features are implemented:
-
-* [ ] List anything else that you added to improve the site's functionality!
-
-## Video Walkthrough
-
-Here's a walkthrough:
-![CdramaHub2](https://github.com/user-attachments/assets/55e9e705-18b4-4178-9bde-ec8e5c584e91)
-GIF created with ScreenToGIF
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-## License
-
-    Copyright [2025] [Yuwen Zhang]
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+## Acknowledgements
+- Jikan API - database providing anime titles and information
+- reactjs-popup - modals and popups
+- Flaticon - icon images on buttons
