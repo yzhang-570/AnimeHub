@@ -14,7 +14,6 @@ A forum for where users can share about and discuss their love for anime.
 * Allow browsing posts by topic
   
 ## Showcase
-- <a href="https://graceful-platypus-f3b0b6.netlify.app/">Visit here!</a>
 <table>
   <tr>
     <td><img width=500 src="https://github.com/user-attachments/assets/eccd7b6d-ba10-49a1-89a0-edfa993b5826"/></td>
